@@ -58,6 +58,8 @@ import java.util.zip.Deflater;
 
 import io.confluent.connect.s3.format.avro.AvroFormat;
 import io.confluent.connect.s3.format.bytearray.ByteArrayFormat;
+import io.confluent.connect.s3.format.csv.CsvFormat;
+import io.confluent.connect.s3.format.etnet.EtnetTransFormat;
 import io.confluent.connect.s3.format.json.JsonFormat;
 import io.confluent.connect.s3.format.parquet.ParquetFormat;
 import io.confluent.connect.s3.storage.CompressionType;
@@ -231,9 +233,11 @@ public class S3SinkConnectorConfig extends StorageSinkConnectorConfig {
 
   private static final Collection<Object> FORMAT_CLASS_VALID_VALUES = Arrays.<Object>asList(
       AvroFormat.class,
+      CsvFormat.class,
       JsonFormat.class,
       ByteArrayFormat.class,
-      ParquetFormat.class
+      ParquetFormat.class,
+      EtnetTransFormat.class
   );
 
   // ByteArrayFormat for headers is not supported.
@@ -241,7 +245,8 @@ public class S3SinkConnectorConfig extends StorageSinkConnectorConfig {
   private static final Collection<Object> HEADERS_FORMAT_CLASS_VALID_VALUES = Arrays.<Object>asList(
       AvroFormat.class,
       JsonFormat.class,
-      ParquetFormat.class
+      ParquetFormat.class,
+      EtnetTransFormat.class
   );
 
   private static final ParentValueRecommender KEYS_FORMAT_CLASS_RECOMMENDER =

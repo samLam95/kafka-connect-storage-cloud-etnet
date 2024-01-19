@@ -40,6 +40,7 @@ import java.util.stream.Collectors;
 
 import io.confluent.connect.s3.S3SinkConnectorConfig;
 import io.confluent.connect.s3.format.parquet.ParquetFormat;
+import io.confluent.connect.s3.format.etnet.EtnetTransFormat;
 import io.confluent.connect.s3.util.S3ProxyConfig;
 import io.confluent.connect.s3.util.Version;
 import io.confluent.connect.storage.Storage;
@@ -210,7 +211,8 @@ public class S3Storage implements Storage<S3SinkConnectorConfig, ObjectListing> 
       throw new IllegalArgumentException("Path can not be empty!");
     }
 
-    if (ParquetFormat.class.isAssignableFrom(formatClass)) {
+    if (ParquetFormat.class.isAssignableFrom(formatClass) 
+            || EtnetTransFormat.class.isAssignableFrom(formatClass)) {
       log.info("Create S3ParquetOutputStream for bucket '{}' key '{}'",
               this.conf.getBucketName(), path);
       return new S3ParquetOutputStream(path, this.conf, s3);
